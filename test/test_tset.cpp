@@ -322,3 +322,41 @@ TEST(TSet, can_use_sum_for_five_elems)
 	expSet.InsElem(5);
 	EXPECT_EQ(set, expSet);
 }
+
+TEST(TSet, can_use_difference_for_five_elems)
+{
+	const int size = 10;
+	TSet set(size), expSet(size);
+	for (int i = 0; i < size; i++)
+		set.InsElem(i);
+	set = set - 1 - 2 - 3 - 4 - 5;
+	expSet.InsElem(0);
+	expSet.InsElem(6);
+	expSet.InsElem(7);
+	expSet.InsElem(8);
+	expSet.InsElem(9);
+	EXPECT_EQ(set, expSet);
+}
+
+TEST(TSet, product_of_sets)
+{
+	const int size = 10;
+	TSet set0(size), set1(size), set2(size), set3(size), expSet(size);
+	set0.InsElem(0);
+	set0.InsElem(1);
+	set0.InsElem(3);
+	set0.InsElem(5);
+	set1.InsElem(0);
+	set1.InsElem(3);
+	set1.InsElem(4);
+	set1.InsElem(5);
+	set2.InsElem(0);
+	set2.InsElem(1);
+	set2.InsElem(5);
+	set2.InsElem(6);
+	set2.InsElem(7);
+	set3 = set0 * set1 * set2;
+	expSet.InsElem(0);
+	expSet.InsElem(5);
+	EXPECT_EQ(expSet, set3);
+}

@@ -83,7 +83,7 @@ void TBitField::SetBit(const int n) // установить бит
 void TBitField::ClrBit(const int n) // очистить бит
 {
 	if (n >= 0 && n < BitLen)
-	pMem[GetMemIndex(n)] &= ~GetMemMask(n);
+		pMem[GetMemIndex(n)] &= ~GetMemMask(n);
 	else
 		throw n;
 }
@@ -192,12 +192,12 @@ TBitField TBitField::operator&(const TBitField &bf) // операция "и"
 TBitField TBitField::operator~(void) // отрицание
 {
 	TBitField tmp(BitLen);
-	tmp = *this;
-	for (int i = 0; i < BitLen; i++)
-		if (tmp.GetBit(i) == 1)
-			tmp.ClrBit(i);
-		else
-			tmp.SetBit(i);
+	for (int i = 0; i < MemLen; i++)
+		tmp.pMem[i] = ~pMem[i];
+	for (int i = sizeof(TELEM)*8 - ((MemLen*sizeof(TELEM) * 8) - BitLen); i < sizeof(TELEM) * 8; i++)
+	{
+			tmp.pMem[MemLen-1] &=(~(1 << i ));
+	}
 	return tmp;
 }
 

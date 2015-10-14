@@ -1,8 +1,19 @@
 # Compiled Object files
 *.slo
-*.lo
+*.lo*
 *.o
 *.obj
+*.vc*
+*.pdb
+*.sdf
+*.tlo*
+*.htm*
+*.suo
+*.idb
+*.filters
+*.ilk
+*.sln
+*.open*
 
 # Precompiled Headers
 *.gch

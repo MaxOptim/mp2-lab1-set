@@ -6,13 +6,14 @@
 // Битовое поле
 
 #include "tbitfield.h"
+#define TELEMSIZE sizeof(TELEM) * 8
 
 TBitField::TBitField(int len)
 {
 	if (len > 0)
 	{
 		BitLen = len;
-		MemLen = 1 + BitLen / (sizeof(TELEM) * 8);
+		MemLen = 1 + BitLen / (TELEMSIZE);
 		pMem = new TELEM[MemLen];
 		for (int i = 0; i < MemLen; i++)
 			pMem[i] = 0;
@@ -42,7 +43,7 @@ int TBitField::GetMemIndex(const int n) const // индекс Мем для би
 {
 	if (n >= 0)
 	{
-		return n / (sizeof(TELEM) * 8);
+		return n / (TELEMSIZE);
 	}
 	else
 	{
@@ -194,9 +195,9 @@ TBitField TBitField::operator~(void) // отрицание
 	TBitField tmp(BitLen);
 	for (int i = 0; i < MemLen; i++)
 		tmp.pMem[i] = ~pMem[i];
-	for (int i = sizeof(TELEM)*8 - ((MemLen*sizeof(TELEM) * 8) - BitLen); i < sizeof(TELEM) * 8; i++)
+	for (int i = TELEMSIZE - ( ( MemLen*TELEMSIZE ) - BitLen ); i < TELEMSIZE; i++)
 	{
-			tmp.pMem[MemLen-1] &=(~(1 << i ));
+		tmp.pMem[MemLen - 1] &= (~(1 << i));
 	}
 	return tmp;
 }

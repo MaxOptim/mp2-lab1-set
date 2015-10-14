@@ -295,3 +295,30 @@ TEST(TSet, check_negation_operator)
 
   EXPECT_EQ(expSet, set1);
 }
+
+TEST(TSet, can_use_sum_for_three_sets)
+{
+	const int size = 10;
+	TSet set0(size), set1(size), set2(size), set3(size), expSet(size);
+	set0.InsElem(1);
+	set1.InsElem(3);
+	set2.InsElem(5);
+	set3 = set0 + set1 + set2;
+	expSet.InsElem(1);
+	expSet.InsElem(3);
+	expSet.InsElem(5);
+	EXPECT_EQ(expSet, set3);
+}
+
+TEST(TSet, can_use_sum_for_five_elems)
+{
+	const int size = 10;
+	TSet set(size), expSet(size);
+	set = set + 1 + 2 + 3 + 4 + 5;
+	expSet.InsElem(1);
+	expSet.InsElem(2);
+	expSet.InsElem(3);
+	expSet.InsElem(4);
+	expSet.InsElem(5);
+	EXPECT_EQ(set, expSet);
+}

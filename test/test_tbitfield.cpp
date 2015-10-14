@@ -50,6 +50,46 @@ TEST(TBitField, can_clear_bit)
   EXPECT_EQ(0, bf.GetBit(bitIdx));
 }
 
+TEST(TBitField, can_clear_bit_twice)
+{
+	TBitField bf(10);
+
+	int bitIdx = 3;
+
+	bf.SetBit(bitIdx);
+	EXPECT_NE(0, bf.GetBit(bitIdx));
+
+	bf.ClrBit(bitIdx);
+	bf.ClrBit(bitIdx);
+
+	EXPECT_EQ(0, bf.GetBit(bitIdx));
+}
+
+TEST(TBitField, can_use_or_for_three_Fields)
+{
+	TBitField bf0(3), bf1(3), bf2(3), bf3(3);
+	bf0.SetBit(0);
+	bf1.SetBit(1);
+	bf2.SetBit(2);
+	bf3 = bf0 | bf1 | bf2;
+	bf0.ClrBit(0);
+	bf0= ~bf0;
+	EXPECT_EQ(bf0, bf3);
+}
+
+TEST(TBitField, can_use_and_for_three_Fields)
+{
+	TBitField bf0(3), bf1(3), bf2(3), bf3(3);
+	bf0.SetBit(0);
+	bf0.SetBit(1);
+	bf1.SetBit(1);
+	bf2.SetBit(2);
+	bf3 = bf0 & bf1 & bf2;
+	bf0.ClrBit(0);
+	bf0.ClrBit(1);
+	EXPECT_EQ(bf0, bf3);
+}
+
 TEST(TBitField, throws_when_create_bitfield_with_negative_length)
 {
   ASSERT_ANY_THROW(TBitField bf(-3));
